@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Route53 Endpoint Resolver
+Parameters:
+  Subnet:
+    Description: 'Select the Subnets'
+    Type: "List<AWS::EC2::Subnet::Id>"
+  SecurityGroup:
+    Description: 'Select the Security Groups'
+    Type: "List<AWS::EC2::SecurityGroup::Id>"
+Resources:
+  OutboundEndpoint:
+    Type: 'AWS::Route53Resolver::ResolverEndpoint'
+    Properties:
+      Direction: INBOUND
+      IpAddresses: !Ref Subnet
+      Name: Dev-Reslover
+      SecurityGroupIds: !Ref SecurityGroup
+      Tags:
+        - Key: Name
+          Value: InboundEndpoint
